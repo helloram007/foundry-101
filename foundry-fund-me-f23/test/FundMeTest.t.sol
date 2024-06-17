@@ -131,7 +131,7 @@ contract FundMeTest is Test {
         // Act
         vm.txGasPrice(GAS_PRICE);
         vm.startPrank(fundme.getOwner());
-        fundme.withdraw();
+        fundme.cheaperWithdraw();
         vm.stopPrank();
 
         // Assert
