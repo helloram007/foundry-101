@@ -2,6 +2,12 @@
 cache/
 out/
 
+yarn.lock
+node_modules
+
+#DotEnv files
+.env
+
 # Ignores development broadcast logs
 !/broadcast
 /broadcast/*/31337/

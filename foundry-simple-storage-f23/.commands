@@ -1,0 +1,14 @@
+cast wallet import defaultKey --interactive
+`defaultKey` keystore was saved successfully. 
+Address: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+
+forge script script/DeploySimpleStore.s.sol:DeploySimpleStore --rpc-url $RPC_URL --broadcast --account defaultKey --sender 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 --password-file .password-file
+
+## Storing Keys in Foundry wallet using Cast
+cast wallet import <<KEYNAME>> --interactive
+e.g. "cast wallet import defaultKey --interactive"
+## List Stored keys
+cast wallet list
+
+npm i thirdweb
+npx thirdweb deploy
