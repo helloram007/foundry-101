@@ -1,0 +1,7 @@
+
+## Setup
+mkdir foundry-fundme-f23
+cd foundty-fundme-f23
+## Now Initialise forge project
+forge init
+
