@@ -5,3 +5,24 @@ cd foundty-fundme-f23
 ## Now Initialise forge project
 forge init
 
+//Remappings
+ReMappings are needed to configure, if the library are installed with a different path from the imports.
+e.g. 
+remappings = ["@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/"]
+
+Here "@chainlink/contracts" are mapped to "lib/chainlink-brownie-contracts/contracts/"
+#
+
+// Compiling contracts
+forge compile
+// Building
+forge Building
+//Running tests
+forge test
+
+// deploying
+forge script script/DeployFundMe.s.sol
+
+//This does the code coverage of your repo.
+forge coverage --fork-url <<RPC_URL>>
+
