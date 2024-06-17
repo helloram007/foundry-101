@@ -14,7 +14,7 @@ contract FundMe {
     address[] private s_funders;
 
     // Could we make this constant?  /* hint: no! We should make it immutable! */
-    address private /* immutable */ i_owner;
+    address private immutable i_owner;
     uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
     AggregatorV3Interface private s_priceFeed;
 
@@ -57,6 +57,24 @@ contract FundMe {
         (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
         require(callSuccess, "Call failed");
     }
+
+    function withdrawCheaper() public onlyOwner {
+        address[] memory funders = s_funders;
+        uint256 funders_length = funders.length;
+        for (
+            uint256 funderIndex = 0; 
+            funderIndex < funders_length; 
+            funderIndex++
+            ){
+                address funder = funders[funderIndex];
+                s_addressToAmountFunded[funder] = 0;
+            }
+            funders = new address[](0);
+            (bool callSuccess,) = payable(msg.sender).call{
+                value: address(this).balance
+            }("");
+            require(callSuccess, "Call failed");
+    }
     // Explainer from: https://solidity-by-example.org/fallback/
     // Ether is sent to contract
     //      is msg.data empty?
@@ -77,15 +95,11 @@ contract FundMe {
         fund();
     }
 
-    function getAddressToAmountFunded(
-        address fundingAddress) 
-        public view returns (uint256) {
+    function getAddressToAmountFunded(address fundingAddress) public view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
     }
 
-    function getFunders(
-        uint256 index
-        ) public view returns (address) {
+    function getFunders(uint256 index) public view returns (address) {
         return s_funders[index];
     }
 
