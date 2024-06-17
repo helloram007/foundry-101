@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
-import {Script} from "forge-std/Script.sol";
+import {Script,console} from "forge-std/Script.sol";
 import {MockV3Aggregator} from "../test/mocks/MockV3Aggregator.sol";
 
 contract HelperConfig is Script {
@@ -19,7 +19,7 @@ contract HelperConfig is Script {
         if (block.chainid == SEPOLIA_CHAIN_ID) {
             activeNetworkConfig = getSepoliaEthConfig();
         } else  {
-            activeNetworkConfig = getAnvilEthConfig();
+            activeNetworkConfig = getOrCreateAnvilEthConfig();
         }
     }
     function getSepoliaEthConfig() public pure returns(NetworkConfig memory) {
@@ -30,8 +30,12 @@ contract HelperConfig is Script {
         return sepoliaConfig;
     }
 
-    function getAnvilEthConfig() public returns (NetworkConfig memory) {
+    function getOrCreateAnvilEthConfig() public returns (NetworkConfig memory) {
         // price feed address for anvil
+        console.log("What is the address of the price feed?", activeNetworkConfig.priceFeed);
+        if( activeNetworkConfig.priceFeed != address(0)){
+            return activeNetworkConfig;
+        }
 
         // 1. Deploy the mocks
         // 2. Return the mock address
